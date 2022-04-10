@@ -15,6 +15,8 @@ func _ready() -> void:
 	EventBus.connect("build_block", self, "_on_build")
 	_hook_portals()
 	VisualServer.set_default_clear_color(Color.black)
+	
+	print("Test"
 
 func _hook_portals() -> void:
 	for portal in get_tree().get_nodes_in_group(ENDPORTALS_GROUP):
