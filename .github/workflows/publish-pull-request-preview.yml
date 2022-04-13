@@ -78,7 +78,7 @@ jobs:
           args: '🎉 Test build for latest PR#${{env.PR_NUM}} ✨👉 ${{steps.netlify-deploy.outputs.deploy-url}} 👈✨'
       - uses: Eomm/why-don-t-you-tweet@v1
         with:
-          tweet-message: "test"
+          tweet-message: ${{ github.event }}
         env:
           TWITTER_CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
           TWITTER_CONSUMER_API_SECRET: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
