@@ -75,7 +75,7 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: '${{ github.issues.issue_number }}'
+          args: '${{github.event.number}}'
 #       - uses: Eomm/why-don-t-you-tweet@v1
 #         with:
 #           tweet-message: 
