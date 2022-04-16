@@ -75,7 +75,7 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'aaaggghhh'
+          args: 'test'
 #       - uses: Eomm/why-don-t-you-tweet@v1
 #         with:
 #           tweet-message: 
