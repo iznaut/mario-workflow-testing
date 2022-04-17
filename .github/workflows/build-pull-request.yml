@@ -44,10 +44,12 @@ jobs:
           PR_NUMBER: ${{ github.event.number }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_SENDER: ${{ github.event.sender.login }}
+          GH_ACTION: ${{ github.event.action }}
         run: |
           echo $PR_NUMBER > ./HTML5/pr_number
           echo $PR_TITLE > ./HTML5/pr_title
           echo $PR_SENDER > ./HTML5/pr_sender
+          echo $GH_ACTION > ./HTML5/gh_action
 
       - uses: actions/upload-artifact@v3
         with:
