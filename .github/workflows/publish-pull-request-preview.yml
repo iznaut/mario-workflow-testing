@@ -41,7 +41,7 @@ jobs:
       - name: Unzip artifact
         run: unzip pr.zip; rm pr.zip
 
-      - name: Store PR number in ENV
+      - name: Store PR info in ENV
         run: |
           PR_NUMBER=$(cat pr_number)
           echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
@@ -76,12 +76,12 @@ jobs:
               issue_number: issue_number,
               body: "blah"
             });
-#       - name: Discord notification
-#         env:
-#           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-#         uses: Ilshidur/action-discord@master
-#         with:
-#           args: '${{steps.netlify-deploy.outputs.deploy-url}}'
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: '${{steps.netlify-deploy.outputs.deploy-url}}'
       - uses: Eomm/why-don-t-you-tweet@v1
         with:
           tweet-message: |
