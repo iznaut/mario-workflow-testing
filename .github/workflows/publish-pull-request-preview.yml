@@ -85,10 +85,11 @@ jobs:
       - uses: Eomm/why-don-t-you-tweet@v1
         with:
           tweet-message: |
-              #${{env.PR_NUMBER}} by ${{env.PR_SENDER}}
-              ${{env.PR_TITLE}}
+              ✨ proposed change #${{env.PR_NUMBER}} by ${{env.PR_SENDER}} ✨
+              
+              "${{env.PR_TITLE}}"
 
-              🎮 try out this change here: ${{env.BUILD_URL}}
+              🎮 play in your browser: ${{env.BUILD_URL}} 🎮
         env:
           BUILD_URL: ${{ steps.netlify-deploy.outputs.deploy-url }}
           TWITTER_CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
