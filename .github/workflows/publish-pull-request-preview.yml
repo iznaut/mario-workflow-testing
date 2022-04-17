@@ -79,7 +79,7 @@ jobs:
                   #${process.env.PR_NUMBER} by ${process.env.PR_SENDER}
                   ${process.env.PR_TITLE}
                   
-                  🎮 try out this change here: ${steps.netlify-deploy.outputs.deploy-url}
+                  🎮 try out this change here: ${{steps.netlify-deploy.outputs.deploy-url}}
                 ```
             });
 #       - name: Discord notification
