@@ -66,6 +66,8 @@ jobs:
 
       - name: 'Comment on PR with link to preview'
         uses: actions/github-script@v3
+        env:
+            BUILD_URL: ${{ steps.netlify-deploy.outputs.deploy-url }}
         with:
           script: |
             var fs = require('fs');
@@ -79,7 +81,7 @@ jobs:
                   #${process.env.PR_NUMBER} by ${process.env.PR_SENDER}
                   ${process.env.PR_TITLE}
                   
-                  🎮 try out this change here: ${{steps.netlify-deploy.outputs.deploy-url}}
+                  🎮 try out this change here: ${process.env.BUILD_URL}
                 ```
             });
 #       - name: Discord notification
