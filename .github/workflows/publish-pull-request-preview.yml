@@ -85,8 +85,8 @@ jobs:
       - uses: Eomm/why-don-t-you-tweet@v1
         with:
           tweet-message: |
-              #${env.PR_NUMBER} by env.PR_SENDER
-              ${PR_TITLE}
+              #${{env.PR_NUMBER}} by ${{env.PR_SENDER}}
+              ${{env.PR_TITLE}}
 
               🎮 try out this change here: ${{env.BUILD_URL}}
         env:
