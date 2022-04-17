@@ -85,10 +85,10 @@ jobs:
       - uses: Eomm/why-don-t-you-tweet@v1
         with:
           tweet-message: |
-              #$PR_NUMBER by $PR_SENDER
-              $PR_TITLE
+              #${{PR_NUMBER}} by ${{PR_SENDER}}
+              ${{PR_TITLE}}
 
-              🎮 try out this change here: $BUILD_URL
+              🎮 try out this change here: ${{BUILD_URL}}
         env:
           BUILD_URL: ${{ steps.netlify-deploy.outputs.deploy-url }}
           TWITTER_CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
