@@ -76,8 +76,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issue_number,
-              body:
-                ```
+              body: ```
                   #${process.env.PR_NUMBER} by ${process.env.PR_SENDER}
                   ${process.env.PR_TITLE}
                   
