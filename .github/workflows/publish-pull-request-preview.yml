@@ -80,7 +80,7 @@ jobs:
                 #${process.env.PR_NUMBER} by ${process.env.PR_SENDER}
                 ${process.env.PR_TITLE}
                   
-                🎮 try out this change here: test
+                🎮 try out this change here: ${process.env.BUILD_URL}
               `
             });
 #       - name: Discord notification
