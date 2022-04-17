@@ -66,8 +66,6 @@ jobs:
 
       - name: 'Comment on PR with link to preview'
         uses: actions/github-script@v3
-        env:
-            BUILD_URL: ${{ steps.netlify-deploy.outputs.deploy-url }}
         with:
           script: |
             var fs = require('fs');
@@ -76,12 +74,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issue_number,
-              body: `
-                #${process.env.PR_NUMBER} by ${process.env.PR_SENDER}
-                ${process.env.PR_TITLE}
-                  
-                🎮 try out this change here: ${process.env.BUILD_URL}
-              `
+              body: "blah"
             });
 #       - name: Discord notification
 #         env:
@@ -92,11 +85,12 @@ jobs:
       - uses: Eomm/why-don-t-you-tweet@v1
         with:
           tweet-message: |
-              #${{process.env.PR_NUMBER}} by ${{process.env.PR_SENDER}}
-              ${{process.env.PR_TITLE}}
+              #$PR_NUMBER by $PR_SENDER
+              $PR_TITLE
 
-              🎮 try out this change here: ${{process.env.BUILD_URL}}
+              🎮 try out this change here: $BUILD_URL
         env:
+          BUILD_URL: ${{ steps.netlify-deploy.outputs.deploy-url }}
           TWITTER_CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
           TWITTER_CONSUMER_API_SECRET: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
           TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
