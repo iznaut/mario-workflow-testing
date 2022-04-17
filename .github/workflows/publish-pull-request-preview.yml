@@ -90,6 +90,8 @@ jobs:
               "${{env.PR_TITLE}}"
 
               🎮 play in your browser: ${{env.BUILD_URL}} 🎮
+              
+              ${{ github.server_url }}/${{ github.repository }}/pulls/${{env.PR_NUMBER}}
         env:
           BUILD_URL: ${{ steps.netlify-deploy.outputs.deploy-url }}
           TWITTER_CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
