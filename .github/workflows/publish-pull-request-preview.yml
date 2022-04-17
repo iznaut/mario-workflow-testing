@@ -74,7 +74,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issue_number,
-              body: '🎉 $PR_NUMBER, $PR_TITLE, $PR_SENDER ✨👉 ${{steps.netlify-deploy.outputs.deploy-url}} 👈✨'
+              body: `${process.env.PR_NUMBER}`
             });
 #       - name: Discord notification
 #         env:
