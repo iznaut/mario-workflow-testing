@@ -14,7 +14,7 @@ class_name Bub
 
 # General movement constants and logic borrowed from Player.
 # TODO: Generalize enemy movement into a MovingEnemy class?
-const UP = Vector2.UP
+const UP = Vector2.LEFT
 const GRAVITY = 100
 const MAXFALLSPEED = 1000
 const RAY_CAST_DISTANCE = 28
