@@ -17,65 +17,73 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-#       - name: 'Download build artifact'
-#         uses: actions/github-script@v3.1.0
-#         with:
-#           script: |
-#             var artifacts = await github.actions.listWorkflowRunArtifacts({
-#                owner: context.repo.owner,
-#                repo: context.repo.repo,
-#                run_id: ${{ github.event.workflow_run.id }},
-#             });
-#             var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
-#               return artifact.name == "pr"
-#             })[0];
-#             var download = await github.actions.downloadArtifact({
-#                owner: context.repo.owner,
-#                repo: context.repo.repo,
-#                artifact_id: matchArtifact.id,
-#                archive_format: 'zip',
-#             });
-#             var fs = require('fs');
-#             fs.writeFileSync('${{github.workspace}}/pr.zip', Buffer.from(download.data));
-
-#       - name: Unzip artifact
-#         run: unzip pr.zip; rm pr.zip
-
-#       - name: Store PR number in ENV
-#         run: |
-#           PR=$(cat pr_number)
-#           echo "PR_NUM=$PR" >> $GITHUB_ENV
-#           rm pr_number
-      
-#       - name: Netlify preview deploy
-#         uses: nwtgck/actions-netlify@v1.2
-#         id: netlify-deploy
-#         with:
-#           publish-dir: '.'
-#           github-token: ${{ secrets.GITHUB_TOKEN }}
-#           deploy-message: "You can test out these proposed changes!"
-#         env:
-#           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-#           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
-#       - name: 'Comment on PR with link to preview'
-#         uses: actions/github-script@v3
-#         with:
-#           script: |
-#             var fs = require('fs');
-#             var issue_number = process.env.PR_NUM
-#             await github.issues.createComment({
-#               owner: context.repo.owner,
-#               repo: context.repo.repo,
-#               issue_number: issue_number,
-#               body: '🎉 You can test out this change! ✨👉 ${{steps.netlify-deploy.outputs.deploy-url}} 👈✨'
-#             });
-      - name: Discord notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: Ilshidur/action-discord@master
+      - name: 'Download build artifact'
+        uses: actions/github-script@v3.1.0
         with:
-          args: '${{steps.netlify-deploy.outputs.deploy-url}}'
+          script: |
+            var artifacts = await github.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{ github.event.workflow_run.id }},
+            });
+            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "pr"
+            })[0];
+            var download = await github.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            var fs = require('fs');
+            fs.writeFileSync('${{github.workspace}}/pr.zip', Buffer.from(download.data));
+
+      - name: Unzip artifact
+        run: unzip pr.zip; rm pr.zip
+
+      - name: Store PR number in ENV
+        run: |
+          PR_NUMBER=$(cat pr_number)
+          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
+          rm pr_number
+          PR_TITLE=$(cat pr_title)
+          echo "PR_TITLE=$PR_TITLE" >> $GITHUB_ENV
+          rm pr_title
+          PR_SENDER=$(cat pr_sender)
+          echo "PR_SENDER=$PR_SENDER" >> $GITHUB_ENV
+          rm pr_sender
+      
+      - name: Netlify preview deploy
+        uses: nwtgck/actions-netlify@v1.2
+        id: netlify-deploy
+        with:
+          publish-dir: '.'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "You can test out these proposed changes!"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: 'Comment on PR with link to preview'
+        uses: actions/github-script@v3
+        with:
+          script: |
+            var fs = require('fs');
+            var issue_number = process.env.PR_NUMBER
+            await github.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: |
+                '🎉 You can test out this change! ✨👉 ${{steps.netlify-deploy.outputs.deploy-url}} 👈✨'
+                '${{ process.env.PR_NUMBER }}, ${{ process.env.PR_TITLE }}, ${{ process.env.PR_SENDER }}'
+            });
+#       - name: Discord notification
+#         env:
+#           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+#         uses: Ilshidur/action-discord@master
+#         with:
+#           args: '${{steps.netlify-deploy.outputs.deploy-url}}'
 #       - uses: Eomm/why-don-t-you-tweet@v1
 #         with:
 #           tweet-message: 
