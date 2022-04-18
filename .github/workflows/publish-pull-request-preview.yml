@@ -88,9 +88,7 @@ jobs:
       - uses: Eomm/why-don-t-you-tweet@v1
         if: ${{ env.PR_ACTION == 'opened' }}
         with:
-          tweet-message: |
-              ${{ env.PR_ACTION }}
-          
+          tweet-message: |          
               ✨ proposed change #${{env.PR_NUMBER}} by ${{env.PR_SENDER}} ✨
               
               "${{env.PR_TITLE}}"
