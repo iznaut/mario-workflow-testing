@@ -52,6 +52,9 @@ jobs:
           PR_SENDER=$(cat pr_sender)
           echo "PR_SENDER=$PR_SENDER" >> $GITHUB_ENV
           rm pr_sender
+          PR_ACTION=$(cat pr_action)
+          echo "PR_ACTION=$PR_ACTION" >> $GITHUB_ENV
+          rm pr_action
       
       - name: Netlify preview deploy
         uses: nwtgck/actions-netlify@v1.2
@@ -83,10 +86,10 @@ jobs:
         with:
           args: '🎉 Test build for PR#${{env.PR_NUM}} ✨👉 ${{steps.netlify-deploy.outputs.deploy-url}} 👈✨'
       - uses: Eomm/why-don-t-you-tweet@v1
-#         if: ${{ env.GH_ACTION == 'opened' }}
+        if: ${{ env.GH_ACTION == 'opened' }}
         with:
           tweet-message: |
-              ${{ env.GH_ACTION }}
+              ${{ env.PR_ACTION }}
           
               ✨ proposed change #${{env.PR_NUMBER}} by ${{env.PR_SENDER}} ✨
               
