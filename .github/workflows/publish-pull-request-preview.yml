@@ -83,9 +83,11 @@ jobs:
         with:
           args: '🎉 Test build for PR#${{env.PR_NUM}} ✨👉 ${{steps.netlify-deploy.outputs.deploy-url}} 👈✨'
       - uses: Eomm/why-don-t-you-tweet@v1
-        if: ${{ env.GH_ACTION == 'opened' }}
+#         if: ${{ env.GH_ACTION == 'opened' }}
         with:
           tweet-message: |
+              ${{ env.GH_ACTION }}
+          
               ✨ proposed change #${{env.PR_NUMBER}} by ${{env.PR_SENDER}} ✨
               
               "${{env.PR_TITLE}}"
