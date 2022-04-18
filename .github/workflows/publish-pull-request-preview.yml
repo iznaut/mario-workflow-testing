@@ -81,12 +81,11 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: '${{steps.netlify-deploy.outputs.deploy-url}}'
+          args: '${{env.GH_ACTION}}'
       - uses: Eomm/why-don-t-you-tweet@v1
 #         if: ${{ env.GH_ACTION }} == "opened"
         with:
           tweet-message: |
-              ${{env.GH_ACTION}}
               ✨ proposed change #${{env.PR_NUMBER}} by ${{env.PR_SENDER}} ✨
               
               "${{env.PR_TITLE}}"
