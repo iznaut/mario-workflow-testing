@@ -15,6 +15,7 @@ on:
 
 jobs:
   build_game:
+    if: ${{ github.event.label.name != 'skip release' }}
     runs-on: ubuntu-latest
     name: Build Game
     steps:
