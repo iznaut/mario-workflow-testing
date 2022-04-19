@@ -79,7 +79,7 @@ jobs:
               body: '🎉 Please test your changes using this link! ✨👉 ${{steps.netlify-deploy.outputs.deploy-url}} 👈✨'
             });
       - name: Discord notification
-        if: ${{ env.PR_ACTION == 'opened' || env.PR_ACTION == 'reopened' }}
+#         if: ${{ env.PR_ACTION == 'opened' || env.PR_ACTION == 'reopened' }}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
